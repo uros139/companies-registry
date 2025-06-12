@@ -16,7 +16,7 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(builder.Configuration.GetConnectionString("Database"))));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
 var app = builder.Build();
 
