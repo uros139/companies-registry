@@ -1,7 +1,6 @@
-﻿namespace CompaniesRegistry.Application
-{
-    public class Class1
-    {
+﻿namespace CompaniesRegistry.Application;
 
-    }
+public class Class1
+{
+
 }

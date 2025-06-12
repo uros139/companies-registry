@@ -1,7 +1,6 @@
-﻿namespace CompaniesRegistry.Data.Migrations
-{
-    public class Class1
-    {
+﻿namespace CompaniesRegistry.Data.Migrations;
 
-    }
+public class Class1
+{
+
 }

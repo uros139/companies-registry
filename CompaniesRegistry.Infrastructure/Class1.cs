@@ -1,7 +1,6 @@
-﻿namespace CompaniesRegistry.Infrastructure
-{
-    public class Class1
-    {
+﻿namespace CompaniesRegistry.Infrastructure;
 
-    }
+public class Class1
+{
+
 }
