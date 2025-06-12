@@ -1,0 +1,6 @@
+@CompaniesRegistry.Api_HostAddress = http://localhost:5156
+
+GET {{CompaniesRegistry.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
