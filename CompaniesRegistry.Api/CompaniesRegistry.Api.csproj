@@ -5,9 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CompaniesRegistry.Application\CompaniesRegistry.Application.csproj" />
+    <ProjectReference Include="..\CompaniesRegistry.Infrastructure\CompaniesRegistry.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

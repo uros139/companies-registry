@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CompaniesRegistry.Application\CompaniesRegistry.Application.csproj" />
+  </ItemGroup>
+
 </Project>
