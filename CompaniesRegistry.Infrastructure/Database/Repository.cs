@@ -18,6 +18,10 @@ public class Repository<T>(ApplicationDbContext context) : IRepository<T> where 
 
     public void Remove(T entity) => _dbSet.Remove(entity);
 
+    public IQueryable<T> QueryAll() => _dbSet;
+
+    public IQueryable<T> QueryAllAsNoTracking() => _dbSet.AsNoTracking();
+
     public Task SaveChangesAsync(CancellationToken cancellationToken = default) =>
         context.SaveChangesAsync(cancellationToken);
 }
