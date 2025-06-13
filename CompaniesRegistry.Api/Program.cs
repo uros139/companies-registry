@@ -14,6 +14,7 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(AssemblyFinder.ApplicationAssembly);
 });
+builder.Services.AddAutoMapper(AssemblyFinder.ApplicationAssembly);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));

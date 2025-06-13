@@ -8,11 +8,20 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompaniesRegistry.Domain\CompaniesRegistry.Domain.csproj" />
+    <ProjectReference Include="..\CompaniesRegistry.SharedKernel\CompaniesRegistry.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Features\Companies\" />
     <Folder Include="Features\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Serilog" />
   </ItemGroup>
 
 </Project>
