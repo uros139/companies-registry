@@ -15,7 +15,7 @@ namespace CompaniesRegistry.Infrastructure.Migrations
                 table: "Companies",
                 type: "nvarchar(255)",
                 maxLength: 255,
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
@@ -83,9 +83,11 @@ namespace CompaniesRegistry.Infrastructure.Migrations
                 table: "Companies",
                 type: "nvarchar(max)",
                 nullable: false,
+                defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "nvarchar(255)",
-                oldMaxLength: 255);
+                oldMaxLength: 255,
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "Ticker",

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompaniesRegistry.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250613185249_CompanyConstraints")]
+    [Migration("20250613190151_CompanyConstraints")]
     partial class CompanyConstraints
     {
         /// <inheritdoc />
@@ -52,7 +52,6 @@ namespace CompaniesRegistry.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("WebSite")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
