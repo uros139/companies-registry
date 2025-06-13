@@ -1,11 +1,13 @@
+﻿using CompaniesRegistry.Api.Infrastructure;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Infrastructure.Api.Init;
 using CompaniesRegistry.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -19,16 +21,26 @@ builder.Services.AddAutoMapper(AssemblyFinder.ApplicationAssembly);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
 
+app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
 app.UseAuthorization();
 
 app.MapControllers();
