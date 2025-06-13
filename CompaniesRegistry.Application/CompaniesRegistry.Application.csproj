@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\CompaniesRegistry.Domain\CompaniesRegistry.Domain.csproj" />
     <ProjectReference Include="..\CompaniesRegistry.SharedKernel\CompaniesRegistry.SharedKernel.csproj" />
