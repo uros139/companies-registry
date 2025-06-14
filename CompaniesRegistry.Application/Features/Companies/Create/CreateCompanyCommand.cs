@@ -1,10 +1,9 @@
-﻿using CompaniesRegistry.SharedKernel;
+﻿using CompaniesRegistry.Application.Abstractions.Messaging;
 
-namespace CompaniesRegistry.Domain.Companies;
+namespace CompaniesRegistry.Application.Features.Companies.Create;
 
-public class Company : Entity
+public sealed record CreateCompanyCommand : ICommand<Guid>
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = String.Empty;
     public string Exchange { get; set; } = String.Empty;
     public string Ticker { get; set; } = String.Empty;

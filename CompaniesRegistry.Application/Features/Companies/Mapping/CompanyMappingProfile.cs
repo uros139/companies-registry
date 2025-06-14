@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CompaniesRegistry.Application.Features.Companies.Create;
 using CompaniesRegistry.Application.Features.Companies.Get;
 using CompaniesRegistry.Domain.Companies;
 
@@ -9,5 +10,6 @@ public class CompanyMappingProfile : Profile
     public CompanyMappingProfile()
     {
         CreateMap<Company, CompanyResponse>();
+        CreateMap<CreateCompanyCommand, Company>();
     }
 }

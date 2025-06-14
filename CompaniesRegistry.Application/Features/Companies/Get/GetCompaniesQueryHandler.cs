@@ -4,17 +4,23 @@ using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CompaniesRegistry.Application.Features.Companies.Get;
 
 internal sealed class GetCompaniesQueryHandler(
     IRepository<Company> companiesRepository,
-    IMapper mapper
+    IMapper mapper,
+    ILogger<GetCompaniesQueryHandler> logger
     ) : IRequestHandler<GetCompaniesQuery, List<CompanyResponse>>
 {
-    public async Task<List<CompanyResponse>> Handle(GetCompaniesQuery request, CancellationToken cancellationToken) =>
-        await companiesRepository
+    public async Task<List<CompanyResponse>> Handle(GetCompaniesQuery request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Handling {Query} at {Time}", nameof(GetCompaniesQuery), DateTime.UtcNow);
+
+        return await companiesRepository
             .QueryAllAsNoTracking()
             .ProjectTo<CompanyResponse>(mapper.ConfigurationProvider, cancellationToken)
             .ToListAsync(cancellationToken);
+    }
 }
