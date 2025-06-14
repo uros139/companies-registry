@@ -1,0 +1,15 @@
+<div class="company-card">
+  <h3 class="company-name">{{ company.name }}</h3>
+  <div class="company-info">
+    <span><strong>Ticker:</strong> {{ company.ticker }}</span>
+    <span><strong>Exchange:</strong> {{ company.exchange }}</span>
+    <span><strong>ISIN:</strong> {{ company.isin }}</span>
+    <ng-container *ngIf="company.webSite">
+      <span><strong>Website:</strong> 
+        <a [href]="company.webSite" target="_blank" rel="noopener noreferrer">
+          {{ company.webSite }}
+        </a>
+      </span>
+    </ng-container>
+  </div>
+</div>

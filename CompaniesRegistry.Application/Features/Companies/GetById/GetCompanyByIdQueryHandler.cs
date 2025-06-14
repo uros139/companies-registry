@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
+using CompaniesRegistry.SharedKernel.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ internal sealed class GetCompanyByIdQueryHandler(
             .QueryAllAsNoTracking()
             .Where(c => c.Id == query.Id)
             .ProjectTo<CompanyResponse>(mapper.ConfigurationProvider)
-            .SingleOrDefaultAsync(cancellationToken);
+            .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException($"Company with ID {query.Id} not found.");
 
         return company;
     }

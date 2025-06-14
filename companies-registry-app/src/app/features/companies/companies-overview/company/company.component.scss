@@ -1,0 +1,54 @@
+.company-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  margin: 1rem auto;
+  max-width: 1000px;
+  min-height: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .company-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+  }
+
+  .company-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    font-size: 1rem;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #444;
+
+      strong {
+        color: #666;
+        font-weight: 500;
+      }
+
+      a {
+        color: #1e88e5;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+          color: #1565c0;
+        }
+      }
+    }
+  }
+}
