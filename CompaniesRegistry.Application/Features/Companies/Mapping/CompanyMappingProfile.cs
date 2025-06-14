@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CompaniesRegistry.Application.Features.Companies.Create;
-using CompaniesRegistry.Application.Features.Companies.Get;
+using CompaniesRegistry.Application.Features.Companies.GetById;
 using CompaniesRegistry.Domain.Companies;
 
 namespace CompaniesRegistry.Application.Features.Companies.Mapping;

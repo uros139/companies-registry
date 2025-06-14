@@ -1,4 +1,4 @@
-﻿namespace CompaniesRegistry.Application.Features.Companies.Get;
+﻿namespace CompaniesRegistry.Application.Features.Companies.GetById;
 
 public class CompanyResponse
 {

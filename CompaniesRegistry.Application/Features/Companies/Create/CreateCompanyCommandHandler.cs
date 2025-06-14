@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
+using CompaniesRegistry.SharedKernel;
 using MediatR;
 
 namespace CompaniesRegistry.Application.Features.Companies.Create;
@@ -8,9 +9,9 @@ namespace CompaniesRegistry.Application.Features.Companies.Create;
 internal sealed class CreateCompanyCommandHandler(
     IRepository<Company> companyRepository,
     IMapper mapper
-    ) : IRequestHandler<CreateCompanyCommand, Guid>
+    ) : IRequestHandler<CreateCompanyCommand, Result<Guid>>
 {
-    public async Task<Guid> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
         var company = mapper.Map<Company>(request);
 
@@ -18,6 +19,6 @@ internal sealed class CreateCompanyCommandHandler(
 
         await companyRepository.SaveChangesAsync(cancellationToken);
 
-        return company.Id;
+        return Result.Success(company.Id);
     }
 }

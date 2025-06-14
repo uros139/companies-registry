@@ -1,40 +1,56 @@
-﻿namespace CompaniesRegistry.SharedKernel;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CompaniesRegistry.SharedKernel;
 
 public class Result
 {
-    public bool IsSuccess { get; init; }
-    public string? Error { get; init; }
-
-    public bool IsFailure => !IsSuccess;
-
-    protected Result(bool isSuccess, string? error)
+    public Result(bool isSuccess, Error error)
     {
-        if (isSuccess && error != null)
-            throw new InvalidOperationException();
-        if (!isSuccess && error == null)
-            throw new InvalidOperationException();
+        if (isSuccess && error != Error.None ||
+            !isSuccess && error == Error.None)
+        {
+            throw new ArgumentException("Invalid error", nameof(error));
+        }
 
         IsSuccess = isSuccess;
         Error = error;
     }
 
-    public static Result Success() => new(true, null);
-    public static Result Failure(string error) => new(false, error);
+    public bool IsSuccess { get; }
+
+    public bool IsFailure => !IsSuccess;
+
+    public Error Error { get; }
+
+    public static Result Success() => new(true, Error.None);
+
+    public static Result<TValue> Success<TValue>(TValue value) =>
+        new(value, true, Error.None);
+
+    public static Result Failure(Error error) => new(false, error);
+
+    public static Result<TValue> Failure<TValue>(Error error) =>
+        new(default, false, error);
 }
 
-public class Result<T> : Result
+public class Result<TValue> : Result
 {
-    public T? Value { get; init; }
+    private readonly TValue? _value;
 
-    private Result(T value) : base(true, null)
+    public Result(TValue? value, bool isSuccess, Error error)
+        : base(isSuccess, error)
     {
-        Value = value;
+        _value = value;
     }
 
-    private Result(string error) : base(false, error)
-    {
-    }
+    [NotNull]
+    public TValue Value => IsSuccess
+        ? _value!
+        : throw new InvalidOperationException("The value of a failure result can't be accessed.");
 
-    public static Result<T> Success(T value) => new(value);
-    public static new Result<T> Failure(string error) => new(error);
+    public static implicit operator Result<TValue>(TValue? value) =>
+        value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
+
+    public static Result<TValue> ValidationFailure(Error error) =>
+        new(default, false, error);
 }

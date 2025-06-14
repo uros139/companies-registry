@@ -10,7 +10,7 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TReque
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        var requestType = typeof(TRequest).FullName ?? string.Empty;
+        var requestType = typeof(TRequest).FullName ?? String.Empty;
         using (logger.BeginScope(
                    new List<KeyValuePair<string, object>> { new("MediatRRequestType", requestType) }))
         {
