@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CompaniesRegistry.Application.Behaviors;
@@ -10,14 +11,27 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TReque
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        var requestType = typeof(TRequest).FullName ?? String.Empty;
+        var requestType = typeof(TRequest).FullName ?? string.Empty;
         using (logger.BeginScope(
                    new List<KeyValuePair<string, object>> { new("MediatRRequestType", requestType) }))
         {
             logger.LogInformation("Handling {RequestType}", requestType);
-            var response = await next(cancellationToken);
-            logger.LogInformation("Handled {RequestType}", requestType);
-            return response;
+            try
+            {
+                var response = await next(cancellationToken);
+                logger.LogInformation("Handled {RequestType}", requestType);
+                return response;
+            }
+            catch (ValidationException)
+            {
+                // Do not log validation exceptions as errors
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Unhandled exception for {RequestType}", requestType);
+                throw;
+            }
         }
     }
 }

@@ -4,16 +4,15 @@ using CompaniesRegistry.Domain.Companies;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompaniesRegistry.Application.Features.Companies.Create;
+namespace CompaniesRegistry.Application.Features.Companies.Update;
 
-public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyCommand>
+public class UpdateCompanyCommandValidator : AbstractValidator<UpdateCompanyCommand>
 {
     private readonly IRepository<Company> _repository;
 
-    public CreateCompanyCommandValidator(IRepository<Company> repository)
+    public UpdateCompanyCommandValidator(IRepository<Company> repository)
     {
         _repository = repository;
-
         RuleFor(c => c.Name)
             .NotEmpty()
             .MaximumLength(ModelConstants.DefaultStringMaxLength);
@@ -46,7 +45,6 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
     private async Task<bool> IsDuplicateIsinAsync(string isin, CancellationToken cancellationToken) =>
         await _repository
             .QueryAllAsNoTracking()
+            .Where(c => c.Isin != isin)
             .AnyAsync(c => c.Isin == isin, cancellationToken);
 }
-
-

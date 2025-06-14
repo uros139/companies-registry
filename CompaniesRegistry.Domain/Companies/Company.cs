@@ -9,4 +9,13 @@ public class Company : Entity
     public string Ticker { get; set; } = String.Empty;
     public string Isin { get; set; } = String.Empty;
     public string? WebSite { get; set; }
+
+    public void Update(CompanyUpdateDto dto)
+    {
+        Name = dto.Name;
+        Exchange = dto.Exchange;
+        Ticker = dto.Ticker;
+        Isin = dto.Isin;
+        WebSite = dto.WebSite;
+    }
 }

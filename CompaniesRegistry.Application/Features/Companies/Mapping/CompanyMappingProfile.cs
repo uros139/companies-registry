@@ -9,7 +9,7 @@ public class CompanyMappingProfile : Profile
 {
     public CompanyMappingProfile()
     {
-        CreateMap<Company, CompanyResponse>();
+        CreateMap<Company, CompanyResponse>().ReverseMap();
         CreateMap<CreateCompanyCommand, Company>();
     }
 }
