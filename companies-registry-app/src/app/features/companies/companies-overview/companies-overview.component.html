@@ -1,8 +1,12 @@
 <div class="companies-overview">
-  <h2>Overview</h2>
+  <div class="overview-header">
+    <h2>Overview</h2>
+    <button (click)="onCreateCompany()" class="create-button">+ Create</button>
+  </div>
 
-  <app-company
-    *ngFor="let company of companies"
-    [company]="company"
-  ></app-company>
+<app-company
+  *ngFor="let company of companies"
+  [company]="company"
+  (click)="onEditCompany(company)"
+></app-company>
 </div>
