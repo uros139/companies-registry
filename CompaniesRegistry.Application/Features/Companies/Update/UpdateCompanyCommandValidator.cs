@@ -13,6 +13,7 @@ public class UpdateCompanyCommandValidator : AbstractValidator<UpdateCompanyComm
     public UpdateCompanyCommandValidator(IRepository<Company> repository)
     {
         _repository = repository;
+
         RuleFor(c => c.Name)
             .NotEmpty()
             .MaximumLength(ModelConstants.DefaultStringMaxLength);
@@ -45,6 +46,6 @@ public class UpdateCompanyCommandValidator : AbstractValidator<UpdateCompanyComm
     private async Task<bool> IsDuplicateIsinAsync(string isin, CancellationToken cancellationToken) =>
         await _repository
             .QueryAllAsNoTracking()
-            .Where(c => c.Isin != isin)
+            .Where(c => c.Isin != isin) //except the current company being updated
             .AnyAsync(c => c.Isin == isin, cancellationToken);
 }
