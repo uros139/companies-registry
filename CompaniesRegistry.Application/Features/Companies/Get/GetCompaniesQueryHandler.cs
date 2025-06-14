@@ -5,14 +5,12 @@ using CompaniesRegistry.Application.Features.Companies.GetById;
 using CompaniesRegistry.Domain.Companies;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace CompaniesRegistry.Application.Features.Companies.Get;
 
 internal sealed class GetCompaniesQueryHandler(
     IRepository<Company> companiesRepository,
-    IMapper mapper,
-    ILogger<GetCompaniesQueryHandler> logger
+    IMapper mapper
     ) : IRequestHandler<GetCompaniesQuery, List<CompanyResponse>>
 {
     public async Task<List<CompanyResponse>> Handle(GetCompaniesQuery request, CancellationToken cancellationToken)
