@@ -11,6 +11,6 @@ public class CompanyMappingProfile : Profile
     {
         CreateMap<Company, CompanyResponse>().ReverseMap();
         CreateMap<CreateCompanyCommand, Company>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore());  // ignore Id here because DB generates it
+            .ForMember(dest => dest.Id, opt => opt.Ignore());  // ignore Id because DB generates it
     }
 }

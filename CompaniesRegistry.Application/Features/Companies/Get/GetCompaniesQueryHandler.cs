@@ -13,9 +13,17 @@ internal sealed class GetCompaniesQueryHandler(
     IMapper mapper
     ) : IRequestHandler<GetCompaniesQuery, List<CompanyResponse>>
 {
-    public async Task<List<CompanyResponse>> Handle(GetCompaniesQuery request, CancellationToken cancellationToken) =>
-        await companiesRepository
-            .QueryAllAsNoTracking()
-            .ProjectTo<CompanyResponse>(mapper.ConfigurationProvider, cancellationToken)
+    public async Task<List<CompanyResponse>> Handle(GetCompaniesQuery request, CancellationToken cancellationToken)
+    {
+        var query = companiesRepository.QueryAllAsNoTracking();
+
+        if (!String.IsNullOrWhiteSpace(request.Isin))
+        {
+            query = query.Where(c => c.Isin == request.Isin);
+        }
+
+        return await query
+            .ProjectTo<CompanyResponse>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
+    }
 }

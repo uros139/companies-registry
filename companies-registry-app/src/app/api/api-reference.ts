@@ -17,9 +17,10 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IClient {
     /**
+     * @param isin (optional) 
      * @return OK
      */
-    companiesAll(): Observable<CompanyResponse[]>;
+    companiesAll(isin?: string | undefined): Observable<CompanyResponse[]>;
     /**
      * @param body (optional) 
      * @return Created
@@ -50,10 +51,15 @@ export class Client implements IClient {
     }
 
     /**
+     * @param isin (optional) 
      * @return OK
      */
-    companiesAll(): Observable<CompanyResponse[]> {
-        let url_ = this.baseUrl + "/api/Companies";
+    companiesAll(isin?: string | undefined): Observable<CompanyResponse[]> {
+        let url_ = this.baseUrl + "/api/Companies?";
+        if (isin === null)
+            throw new Error("The parameter 'isin' cannot be null.");
+        else if (isin !== undefined)
+            url_ += "Isin=" + encodeURIComponent("" + isin) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

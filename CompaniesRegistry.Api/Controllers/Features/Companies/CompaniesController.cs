@@ -13,9 +13,9 @@ public class CompaniesController(IMediator mediator) : Controller
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<CompanyResponse>>> Get(CancellationToken cancellationToken)
+    public async Task<ActionResult<List<CompanyResponse>>> Get([FromQuery] GetCompaniesQuery query, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCompaniesQuery(), cancellationToken);
+        var result = await mediator.Send(query, cancellationToken);
         return result.ToActionResult();
     }
 
