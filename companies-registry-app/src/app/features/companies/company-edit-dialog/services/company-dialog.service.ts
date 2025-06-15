@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 import { CompanyResponse } from '../../../../api/api-reference';
 import { CompanyEditDialogComponent } from '../company-edit-dialog.component';
 
-
 @Injectable({ providedIn: 'root' })
 export class CompanyDialogService {
     constructor(private readonly dialog: MatDialog) { }
 
-    openCreateDialog(): Observable<CompanyResponse | undefined> {
+    openCreateDialog(): Observable<boolean> {
         const emptyCompany = new CompanyResponse();
         emptyCompany.name = '';
         emptyCompany.exchange = '';
@@ -19,16 +18,16 @@ export class CompanyDialogService {
 
         const dialogRef = this.dialog.open(CompanyEditDialogComponent, {
             width: '500px',
-            data: emptyCompany,
+            data: { company: emptyCompany, isEdit: false },
         });
 
         return dialogRef.afterClosed();
     }
 
-    openEditDialog(company: CompanyResponse): Observable<CompanyResponse | undefined> {
+    openEditDialog(company: CompanyResponse): Observable<boolean> {
         const dialogRef = this.dialog.open(CompanyEditDialogComponent, {
             width: '500px',
-            data: company,
+            data: { company: company, isEdit: true },
         });
 
         return dialogRef.afterClosed();

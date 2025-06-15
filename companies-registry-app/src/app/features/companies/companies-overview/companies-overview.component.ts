@@ -13,7 +13,7 @@ import { CompanyDialogService } from '../company-edit-dialog/services/company-di
 })
 export class CompaniesOverviewComponent implements OnInit {
   companies: CompanyResponse[] = [];
-
+  
   constructor(
     private client: Client,
     private companyDialogService: CompanyDialogService
@@ -32,21 +32,16 @@ export class CompaniesOverviewComponent implements OnInit {
   onCreateCompany(): void {
     this.companyDialogService.openCreateDialog().subscribe((result) => {
       if (result) {
-        this.client.companiesPOST(result).subscribe(() => {
-          this.loadCompanies();
-        });
+        this.loadCompanies();
       }
     });
   }
 
-onEditCompany(company: CompanyResponse): void {
-  this.companyDialogService.openEditDialog(company).subscribe((result) => {
-    if (result) {
-      this.client.companiesPUT(company.id!, result).subscribe(() => {
+  onEditCompany(company: CompanyResponse): void {
+    this.companyDialogService.openEditDialog(company).subscribe((result) => {
+      if (result) {
         this.loadCompanies();
-      });
-    }
-  });
-}
-
+      }
+    });
+  }
 }
