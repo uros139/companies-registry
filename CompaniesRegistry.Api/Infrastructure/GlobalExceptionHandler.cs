@@ -1,25 +1,14 @@
 ﻿using CompaniesRegistry.Api.Infrastructure.ExceptionHandling;
-using CompaniesRegistry.SharedKernel.Exceptions;
-using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompaniesRegistry.Api.Infrastructure;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(IEnumerable<IExceptionHandlerStrategy> handlers, ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly IEnumerable<IExceptionHandlerStrategy> _handlers;
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-
-    public GlobalExceptionHandler(IEnumerable<IExceptionHandlerStrategy> handlers, ILogger<GlobalExceptionHandler> logger)
-    {
-        _handlers = handlers;
-        _logger = logger;
-    }
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        var handler = _handlers.FirstOrDefault(h => h.CanHandle(exception));
+        var handler = handlers.FirstOrDefault(h => h.CanHandle(exception));
         if (handler != null)
         {
             await handler.HandleAsync(httpContext, exception, cancellationToken);
@@ -33,7 +22,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 
     private async Task HandleGenericAsync(HttpContext context, Exception ex, CancellationToken cancellationToken)
     {
-        _logger.LogError(ex, "Unhandled exception occurred");
+        logger.LogError(ex, "Unhandled exception occurred");
 
         var problemDetails = new ProblemDetails
         {

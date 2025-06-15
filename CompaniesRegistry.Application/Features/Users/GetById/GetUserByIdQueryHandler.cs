@@ -1,12 +1,13 @@
 ﻿using CompaniesRegistry.Application.Abstractions.Authentication;
 using CompaniesRegistry.Application.Abstractions.Data;
+using CompaniesRegistry.Domain.Users;
 using CompaniesRegistry.SharedKernel.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Application.Features.Users.GetById;
 
-internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context, IUserContext userContext)
+internal sealed class GetUserByIdQueryHandler(IRepository<User> usersRepository, IUserContext userContext)
     : IRequestHandler<GetUserByIdQuery, UserResponse>
 {
     public async Task<UserResponse> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
@@ -16,7 +17,8 @@ internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context, IUs
             throw new UnauthorizedAccessException("You are not authorized to access this user.");
         }
 
-        UserResponse? user = await context.Users
+        UserResponse? user = await usersRepository
+            .QueryAllAsNoTracking()
             .Where(u => u.Id == query.UserId)
             .Select(u => new UserResponse
             {

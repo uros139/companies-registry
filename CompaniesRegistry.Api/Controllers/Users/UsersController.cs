@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CompaniesRegistry.Api.Controllers.Users;
 
 [Route("api/[controller]")]
-public class UserController(IMediator mediator) : Controller
+public class UsersController(IMediator mediator) : Controller
 {
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status201Created)]
