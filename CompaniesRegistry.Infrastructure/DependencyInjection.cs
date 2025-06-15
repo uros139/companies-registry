@@ -1,7 +1,10 @@
 ﻿using System.Text;
 using CompaniesRegistry.Application.Abstractions.Authentication;
+using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Infrastructure.Authentication;
+using CompaniesRegistry.Infrastructure.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +17,19 @@ public static class DependencyInjection
     this IServiceCollection services,
     IConfiguration configuration) =>
     services
+        .AddDatabase(configuration)
+        .AddRepositories()
         .AddAuthenticationInternal(configuration);
+
+    private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("Database")));
+        
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services) => services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
     private static IServiceCollection AddAuthenticationInternal(
     this IServiceCollection services,
