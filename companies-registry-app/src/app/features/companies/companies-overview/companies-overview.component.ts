@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyComponent } from './company/company.component';
 import { Client, CompanyResponse } from '../../../api/api-reference';
 import { CompanyDialogService } from '../company-edit-dialog/services/company-dialog.service';
+import { CompanySearchService } from '../../../shared/services/company-search.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-companies-overview',
@@ -13,20 +15,31 @@ import { CompanyDialogService } from '../company-edit-dialog/services/company-di
 })
 export class CompaniesOverviewComponent implements OnInit {
   companies: CompanyResponse[] = [];
-  
+  private destroy$ = new Subject<void>();
+
   constructor(
     private client: Client,
-    private companyDialogService: CompanyDialogService
+    private companyDialogService: CompanyDialogService,
+    private searchService: CompanySearchService
   ) {}
 
   ngOnInit(): void {
     this.loadCompanies();
+
+    this.searchService.isin$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isin) => {
+        this.loadCompanies(isin);
+      });
   }
 
-  loadCompanies(): void {
-    this.client.companiesAll().subscribe((companies) => {
-      this.companies = companies;
-    });
+  loadCompanies(isin?: string | null) {
+    this.client
+      .companiesAll(isin ?? '')
+      .subscribe({
+        next: (res) => (this.companies = res),
+        error: (err) => console.error('Error fetching companies:', err),
+      });
   }
 
   onCreateCompany(): void {

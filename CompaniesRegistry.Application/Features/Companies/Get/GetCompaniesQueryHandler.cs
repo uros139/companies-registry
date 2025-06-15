@@ -19,7 +19,7 @@ internal sealed class GetCompaniesQueryHandler(
 
         if (!String.IsNullOrWhiteSpace(request.Isin))
         {
-            query = query.Where(c => c.Isin == request.Isin);
+            query = query.Where(c => c.Isin.StartsWith(request.Isin));
         }
 
         return await query
