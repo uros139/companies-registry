@@ -1,6 +1,7 @@
 ﻿using CompaniesRegistry.Api.Infrastructure;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Application.Behaviors;
+using CompaniesRegistry.Infrastructure;
 using CompaniesRegistry.Infrastructure.Api.Init;
 using CompaniesRegistry.Infrastructure.Database;
 using FluentValidation;
@@ -11,6 +12,9 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+
+builder.Services
+    .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {

@@ -1,5 +1,6 @@
 ﻿using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
+using CompaniesRegistry.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Infrastructure.Database;
@@ -9,6 +10,7 @@ public sealed class ApplicationDbContext(
     : DbContext(options), IApplicationDbContext
 {
     public DbSet<Company> Companies { get; set; }
+    public DbSet<User> Users{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
