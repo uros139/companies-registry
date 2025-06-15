@@ -16,26 +16,25 @@ public class CompanyHandlersTests
 {
     private readonly Mock<IRepository<Company>> _companyRepositoryMock;
     private readonly Mock<IMapper> _mapperMock;
-    private readonly CreateCompanyCommandHandler _handler;
+    private readonly CreateCompanyCommandHandler _createHandler;
 
     public CompanyHandlersTests()
     {
         _companyRepositoryMock = new Mock<IRepository<Company>>();
         _mapperMock = new Mock<IMapper>();
-        _handler = new CreateCompanyCommandHandler(_companyRepositoryMock.Object, _mapperMock.Object);
+        _createHandler = new CreateCompanyCommandHandler(_companyRepositoryMock.Object, _mapperMock.Object);
     }
 
-    [Fact]
-    public async Task Create_ShouldAddCompanyAndReturnResponse()
+    private (CreateCompanyCommand command, Company company, CompanyResponse response) 
+        SetupCreateCommandData(string name, string exchange, string ticker, string isin, string website)
     {
-        // Arrange
         var command = new CreateCompanyCommand
         {
-            Name = "Test Company",
-            Exchange = "NASDAQ",
-            Ticker = "TST",
-            Isin = "US1234567890",
-            WebSite = "https://test.com"
+            Name = name,
+            Exchange = exchange,
+            Ticker = ticker,
+            Isin = isin,
+            WebSite = website
         };
 
         var company = new Company
@@ -62,8 +61,17 @@ public class CompanyHandlersTests
         _companyRepositoryMock.Setup(r => r.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
         _mapperMock.Setup(m => m.Map<CompanyResponse>(company)).Returns(response);
 
+        return (command, company, response);
+    }
+
+    [Fact]
+    public async Task Create_ShouldAddCompanyAndReturnResponse()
+    {
+        // Arrange
+        var (command, company, response) = SetupCreateCommandData("Test Company", "NASDAQ", "TST", "US1234567890", "https://test.com");
+
         // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await _createHandler.Handle(command, CancellationToken.None);
 
         // Assert
         _mapperMock.Verify(m => m.Map<Company>(command), Times.Once);
@@ -78,41 +86,10 @@ public class CompanyHandlersTests
     public async Task Create_ShouldCallRepositoryAddAndSaveChanges()
     {
         // Arrange
-        var command = new CreateCompanyCommand
-        {
-            Name = "Sample Company",
-            Exchange = "NYSE",
-            Ticker = "SMP",
-            Isin = "US9876543210",
-            WebSite = "https://sample.com"
-        };
-
-        var company = new Company
-        {
-            Name = command.Name,
-            Exchange = command.Exchange,
-            Ticker = command.Ticker,
-            Isin = command.Isin,
-            WebSite = command.WebSite
-        };
-
-        var response = new CompanyResponse
-        {
-            Id = Guid.NewGuid(),
-            Name = command.Name,
-            Exchange = command.Exchange,
-            Ticker = command.Ticker,
-            Isin = command.Isin,
-            WebSite = command.WebSite
-        };
-
-        _mapperMock.Setup(m => m.Map<Company>(command)).Returns(company);
-        _companyRepositoryMock.Setup(r => r.AddAsync(company, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
-        _companyRepositoryMock.Setup(r => r.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
-        _mapperMock.Setup(m => m.Map<CompanyResponse>(company)).Returns(response);
+        var (command, company, response) = SetupCreateCommandData("Sample Company", "NYSE", "SMP", "US9876543210", "https://sample.com");
 
         // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await _createHandler.Handle(command, CancellationToken.None);
 
         // Assert
         _companyRepositoryMock.Verify(r => r.AddAsync(company, It.IsAny<CancellationToken>()), Times.Once);
