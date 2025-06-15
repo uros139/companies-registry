@@ -49,7 +49,7 @@ dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:sug
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
 dotnet_style_readonly_field = true:warning
 # Expression-level preferences 
-dotnet_style_coalesce_expression = true:error
+dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_collection_initializer = true:warning
 dotnet_style_explicit_tuple_names = true:error
 dotnet_style_null_propagation = true:error
@@ -70,6 +70,10 @@ dotnet_style_namespace_match_folder = true:suggestion
 ############################### 
 # C# Coding Conventions       # 
 ############################### 
+
+# IDE0270: Use coalesce expression
+dotnet_diagnostic.IDE0270.severity = suggestion
+
 [*.cs]
 # var preferences 
 csharp_style_var_elsewhere = true:silent
@@ -283,7 +287,7 @@ dotnet_diagnostic.CA1507.severity = error # CA1507: Use nameof in place of strin
 dotnet_diagnostic.CA1508.severity = error # CA1508: Avoid dead conditional code
 dotnet_diagnostic.CA1509.severity = error # CA1509: Invalid entry in code metrics configuration file
 dotnet_diagnostic.CA1700.severity = error # CA1700: Do not name enum values 'Reserved'
-dotnet_diagnostic.CA1707.severity = error # CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity = suggestion # CA1707: Identifiers should not contain underscores
 dotnet_diagnostic.CA1708.severity = error # CA1708: Identifiers should differ by more than case
 dotnet_diagnostic.CA1710.severity = warning # CA1710: Identifiers should have correct suffix
 dotnet_diagnostic.CA1711.severity = warning # CA1711: Identifiers should not have incorrect suffix
@@ -358,7 +362,7 @@ dotnet_diagnostic.CA2109.severity = error # CA2109: Review visible event handler
 dotnet_diagnostic.CA2119.severity = error # CA2119: Seal methods that satisfy private interfaces
 dotnet_diagnostic.CA2153.severity = error # CA2153: Avoid handling Corrupted State Exceptions
 dotnet_diagnostic.CA2200.severity = error # CA2200: Rethrow to preserve stack details
-dotnet_diagnostic.CA2201.severity = error # CA2201: Do not raise reserved exception types
+dotnet_diagnostic.CA2201.severity = suggestion # CA2201: Do not raise reserved exception types
 dotnet_diagnostic.CA2207.severity = error # CA2207: Initialize value type static fields inline
 dotnet_diagnostic.CA2208.severity = error # CA2208: Instantiate argument exceptions correctly
 dotnet_diagnostic.CA2211.severity = error # CA2211: Non-constant fields should not be visible
@@ -612,7 +616,7 @@ dotnet_diagnostic.IDE0083.severity = warning # IDE0083: Use pattern matching (no
 dotnet_diagnostic.IDE0090.severity = warning # IDE0090: Simplify new expression
 dotnet_diagnostic.IDE0100.severity = error # IDE0100: Remove unnecessary equality operator
 dotnet_diagnostic.IDE0110.severity = error # IDE0110: Remove unnecessary discard
-dotnet_diagnostic.IDE0290.severity = none # IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = suggeston # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE1005.severity = error # IDE1005: Delegate invocation can be simplified
 dotnet_diagnostic.IDE1005WithoutSuggestion.severity = error # IDE1005: Delegate invocation can be simplified
 dotnet_diagnostic.IDE1006.severity = error # IDE1006: Naming styles

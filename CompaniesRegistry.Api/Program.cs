@@ -1,4 +1,5 @@
 ﻿using CompaniesRegistry.Api.Infrastructure;
+using CompaniesRegistry.Api.Infrastructure.ExceptionHandling;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Application.Behaviors;
 using CompaniesRegistry.Infrastructure;
@@ -26,6 +27,11 @@ builder.Services.AddCors(options =>
               .AllowCredentials();
     });
 });
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<IExceptionHandlerStrategy>()
+    .AddClasses(classes => classes.AssignableTo<IExceptionHandlerStrategy>())
+    .AsImplementedInterfaces()
+    .WithTransientLifetime());
 
 builder.Services.AddControllers();
 

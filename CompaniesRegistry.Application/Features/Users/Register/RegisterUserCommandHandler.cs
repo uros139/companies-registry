@@ -2,7 +2,6 @@
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Users;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Application.Features.Users.Register;
 

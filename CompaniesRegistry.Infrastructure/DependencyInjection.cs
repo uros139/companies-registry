@@ -32,7 +32,11 @@ public static class DependencyInjection
                     ClockSkew = TimeSpan.Zero
                 };
             });
+        services.AddHttpContextAccessor();
+        services.AddScoped<IUserContext, UserContext>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<ITokenProvider, TokenProvider>();
+
         return services;
     }
 }

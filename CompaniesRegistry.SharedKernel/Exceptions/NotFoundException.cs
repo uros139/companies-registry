@@ -1,9 +1,5 @@
 ﻿namespace CompaniesRegistry.SharedKernel.Exceptions;
 
-public class NotFoundException : Exception
+public class NotFoundException(string message) : Exception(message)
 {
-    public NotFoundException(string message)
-        : base(message)
-    {
-    }
 }
