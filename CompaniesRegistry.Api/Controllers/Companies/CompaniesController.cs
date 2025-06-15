@@ -4,11 +4,13 @@ using CompaniesRegistry.Application.Features.Companies.Get;
 using CompaniesRegistry.Application.Features.Companies.GetById;
 using CompaniesRegistry.Application.Features.Companies.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompaniesRegistry.Api.Controllers.Companies;
 
 [Route("api/[controller]")]
+[Authorize]
 public class CompaniesController(IMediator mediator) : Controller
 {
     [HttpGet]
