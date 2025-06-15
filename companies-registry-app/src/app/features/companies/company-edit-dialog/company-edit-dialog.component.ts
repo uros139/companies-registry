@@ -53,20 +53,18 @@ export class CompanyEditDialogComponent {
     this.isSaving = true;
     
     if (this.isEditMode) {
-      // Edit existing company
       this.client.companiesPUT(this.data.company!.id!, this.form.value).subscribe({
         next: () => {
-          this.dialogRef.close(true); // Close with success result
+          this.dialogRef.close(true);
         },
         error: (error) => {
           this.handleError(error);
         }
       });
     } else {
-      // Create new company
       this.client.companiesPOST(this.form.value).subscribe({
         next: () => {
-          this.dialogRef.close(true); // Close with success result
+          this.dialogRef.close(true);
         },
         error: (error) => {
           this.handleError(error);
@@ -83,7 +81,6 @@ export class CompanyEditDialogComponent {
     this.isSaving = false;
     console.error('Caught error:', error);
     
-    // NSwag throws an ApiException with a .response string (JSON)
     if (error instanceof Error && 'response' in error) {
       try {
         const parsed = JSON.parse((error as any).response);

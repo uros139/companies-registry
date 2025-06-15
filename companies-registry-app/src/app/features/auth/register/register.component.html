@@ -1,0 +1,29 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <label>First Name</label>
+  <input type="text" formControlName="firstName" />
+  <div class="error" *ngIf="registerForm.get('firstName')?.errors?.['serverError']">
+    {{ registerForm.get('firstName')?.errors?.['serverError'] }}
+  </div>
+
+  <label>Last Name</label>
+  <input type="text" formControlName="lastName" />
+  <div class="error" *ngIf="registerForm.get('lastName')?.errors?.['serverError']">
+    {{ registerForm.get('lastName')?.errors?.['serverError'] }}
+  </div>
+
+  <label>Email</label>
+  <input type="email" formControlName="email" />
+  <div class="error" *ngIf="registerForm.get('email')?.errors?.['serverError']">
+    {{ registerForm.get('email')?.errors?.['serverError'] }}
+  </div>
+
+  <label>Password</label>
+  <input type="password" formControlName="password" />
+  <div class="error" *ngIf="registerForm.get('password')?.errors?.['serverError']">
+    {{ registerForm.get('password')?.errors?.['serverError'] }}
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+</form>

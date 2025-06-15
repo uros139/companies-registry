@@ -43,7 +43,7 @@ export interface IClient {
      * @param body (optional) 
      * @return OK
      */
-    login(body?: LoginUserCommand | undefined): Observable<string>;
+    login(body?: LoginUserCommand | undefined): Observable<LoginResponse>;
     /**
      * @param body (optional) 
      * @return Created
@@ -378,7 +378,7 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return OK
      */
-    login(body?: LoginUserCommand | undefined): Observable<string> {
+    login(body?: LoginUserCommand | undefined): Observable<LoginResponse> {
         let url_ = this.baseUrl + "/api/Users/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -401,14 +401,14 @@ export class Client implements IClient {
                 try {
                     return this.processLogin(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<string>;
+                    return _observableThrow(e) as any as Observable<LoginResponse>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<string>;
+                return _observableThrow(response_) as any as Observable<LoginResponse>;
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<string> {
+    protected processLogin(response: HttpResponseBase): Observable<LoginResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -419,8 +419,7 @@ export class Client implements IClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = LoginResponse.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -606,6 +605,42 @@ export interface ICreateCompanyCommand {
     ticker?: string | undefined;
     isin?: string | undefined;
     webSite?: string | undefined;
+}
+
+export class LoginResponse implements ILoginResponse {
+    token?: string | undefined;
+
+    constructor(data?: ILoginResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.token = _data["token"];
+        }
+    }
+
+    static fromJS(data: any): LoginResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new LoginResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["token"] = this.token;
+        return data;
+    }
+}
+
+export interface ILoginResponse {
+    token?: string | undefined;
 }
 
 export class LoginUserCommand implements ILoginUserCommand {

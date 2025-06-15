@@ -24,12 +24,12 @@ public class UsersController(IMediator mediator) : Controller
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<string>> Login(
+    public async Task<ActionResult<LoginResponse>> Login(
         [FromBody] LoginUserCommand command,
         CancellationToken cancellationToken)
     {
-        var token = await mediator.Send(command, cancellationToken);
-        return token.ToActionResult();
+        var result = await mediator.Send(command, cancellationToken);
+        return result.ToActionResult();
     }
 
     [HttpPost("register")]

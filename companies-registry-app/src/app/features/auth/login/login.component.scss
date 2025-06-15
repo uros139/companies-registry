@@ -1,0 +1,93 @@
+form {
+    max-width: 320px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.25rem;
+    }
+
+    input {
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        border: 1.5px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 5px #0078d4aa;
+        }
+    }
+
+    button {
+        padding: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background-color: #224158;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+
+        &:not(:disabled):hover {
+            background-color: #24435a;
+        }
+    }
+
+    div {
+        color: #b00020;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .register-link {
+        margin-top: 1rem;
+        text-align: center;
+        color: #2d475a;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: underline;
+        user-select: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #4589bd;
+        }
+    }
+}
+.form-wrapper {
+  max-width: 320px;
+  margin: 4rem auto;
+  text-align: center;
+
+  .app-title {
+    font-size: 1.8rem;
+    color: #1d2a35;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .form-title {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+}

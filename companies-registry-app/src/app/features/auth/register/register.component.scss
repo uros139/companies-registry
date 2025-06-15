@@ -1,0 +1,66 @@
+form {
+  max-width: 360px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-family: 'Segoe UI', sans-serif;
+
+  label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #0078d4;
+      box-shadow: 0 0 6px rgba(0, 120, 212, 0.25);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #d93025;
+    }
+  }
+
+  button {
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:disabled {
+      background-color: #a0a0a0;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background-color: #005a9e;
+    }
+  }
+
+  div {
+    color: #d93025;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}

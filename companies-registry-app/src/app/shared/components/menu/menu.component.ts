@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { CompanySearchService } from '../../services/company-search.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +16,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   private destroy$ = new Subject<void>();
 
-  constructor(private searchService: CompanySearchService) {}
+  constructor(
+    private searchService: CompanySearchService,
+    private router: Router) { }
 
   ngOnInit() {
     this.searchControl.valueChanges.pipe(
@@ -33,6 +36,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    console.log('Logout clicked (dummy)');
+    localStorage.removeItem('jwt_token');
+    this.router.navigate(['/login']);
   }
 }

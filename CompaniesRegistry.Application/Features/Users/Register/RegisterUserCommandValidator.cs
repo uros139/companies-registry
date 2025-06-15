@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Application.Features.Users.Register;
 
-internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
     public RegisterUserCommandValidator(IRepository<User> repository)
     {

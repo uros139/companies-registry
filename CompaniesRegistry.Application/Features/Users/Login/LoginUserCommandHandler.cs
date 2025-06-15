@@ -11,9 +11,9 @@ internal sealed class LoginUserCommandHandler(
     IRepository<User> usersRepository,
     IPasswordHasher passwordHasher,
     ITokenProvider tokenProvider
-) : IRequestHandler<LoginUserCommand, string>
+) : IRequestHandler<LoginUserCommand, LoginResponse>
 {
-    public async Task<string> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async Task<LoginResponse> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         var user = await usersRepository
             .QueryAllAsNoTracking()
@@ -33,6 +33,6 @@ internal sealed class LoginUserCommandHandler(
 
         var token = tokenProvider.Create(user);
 
-        return token;
+        return new LoginResponse { Token = token };
     }
 }
