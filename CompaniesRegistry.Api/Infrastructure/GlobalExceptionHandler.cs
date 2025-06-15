@@ -13,7 +13,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
         Exception exception,
         CancellationToken cancellationToken)
     {
-        if (exception is ValidationException validationException)   
+        if (exception is ValidationException validationException)
         {
             logger.LogWarning(exception, "Validation failed");
 
