@@ -16,7 +16,16 @@ services:
       retries: 5
     networks:
       - backend
-
+  angular:
+      build: 
+        context: ./companies-registry-app
+        dockerfile: Dockerfile
+      ports:
+      - "4200:80"
+      depends_on:
+      - companiesregistry.api
+      networks:
+      - backend
   companiesregistry.api:
     build:
       context: .
