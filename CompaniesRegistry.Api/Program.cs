@@ -1,4 +1,5 @@
-﻿using CompaniesRegistry.Api.Infrastructure;
+﻿using CompaniesRegistry.Api.Extensions;
+using CompaniesRegistry.Api.Infrastructure;
 using CompaniesRegistry.Api.Infrastructure.ExceptionHandling;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Application.Behaviors;
@@ -66,6 +67,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.ApplyMigrations();
 }
 
 app.UseAuthorization();

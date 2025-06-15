@@ -78,9 +78,7 @@ export class CompanyEditDialogComponent {
   }
 
   handleError(error: any) {
-    this.isSaving = false;
-    console.error('Caught error:', error);
-    
+    this.isSaving = false;    
     if (error instanceof Error && 'response' in error) {
       try {
         const parsed = JSON.parse((error as any).response);
