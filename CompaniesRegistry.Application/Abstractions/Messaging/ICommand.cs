@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using CompaniesRegistry.SharedKernel;
+using MediatR;
 
 namespace CompaniesRegistry.Application.Abstractions.Messaging;
 

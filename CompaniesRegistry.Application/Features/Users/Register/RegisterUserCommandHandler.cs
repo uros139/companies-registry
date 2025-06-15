@@ -1,14 +1,20 @@
-﻿using CompaniesRegistry.Application.Abstractions.Authentication;
+﻿using AutoMapper;
+using CompaniesRegistry.Application.Abstractions.Authentication;
 using CompaniesRegistry.Application.Abstractions.Data;
+using CompaniesRegistry.Application.Features.Users.GetById;
 using CompaniesRegistry.Domain.Users;
 using MediatR;
 
 namespace CompaniesRegistry.Application.Features.Users.Register;
 
-internal sealed class RegisterUserCommandHandler(IRepository<User> repository, IPasswordHasher passwordHasher)
-    : IRequestHandler<RegisterUserCommand, Guid>
+internal sealed class RegisterUserCommandHandler(
+    IRepository<User> repository,
+    IPasswordHasher passwordHasher,
+    IMapper mapper
+    )
+    : IRequestHandler<RegisterUserCommand, UserResponse>
 {
-    public async Task<Guid> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
+    public async Task<UserResponse> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
         var user = new User
         {
@@ -23,6 +29,6 @@ internal sealed class RegisterUserCommandHandler(IRepository<User> repository, I
 
         await repository.SaveChangesAsync(cancellationToken);
 
-        return user.Id;
+        return mapper.Map<UserResponse>(user);
     }
 }

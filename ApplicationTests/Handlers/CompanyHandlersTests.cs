@@ -5,6 +5,7 @@ using CompaniesRegistry.Application.Features.Companies.GetById;
 using CompaniesRegistry.Application.Features.Companies.Mapping;
 using CompaniesRegistry.Application.Features.Companies.Update;
 using CompaniesRegistry.Domain.Companies;
+using CompaniesRegistry.SharedKernel.Exceptions;
 using Microsoft.Extensions.Logging.Abstractions;
 using MockQueryable;
 using Moq;
@@ -120,31 +121,51 @@ public class CompanyHandlersTests
     }
 
     [Fact]
-    public async Task GetCompanyById_ShouldReturnNull_WhenCompanyNotFound()
+    public async Task GetCompanyById_ShouldThrowNotFoundException_WhenCompanyNotFound()
     {
         // Arrange
         var query = new GetCompanyByIdQuery(Guid.NewGuid());
         var companyRepositoryMock = new Mock<IRepository<Company>>();
-        var mapperConfig = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<CompanyMappingProfile>();
-        });
+        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CompanyMappingProfile>());
         var mapperMock = new Mock<IMapper>();
-        mapperMock
-            .Setup(m => m.ConfigurationProvider)
-            .Returns(mapperConfig);
+        mapperMock.Setup(m => m.ConfigurationProvider).Returns(mapperConfig);
         var loggerMock = new NullLogger<GetCompanyByIdQueryHandler>();
 
         var companiesData = new List<Company>().AsQueryable().BuildMock();
 
-        companyRepositoryMock
-            .Setup(r => r.QueryAllAsNoTracking())
-            .Returns(companiesData);
+        companyRepositoryMock.Setup(r => r.QueryAllAsNoTracking()).Returns(companiesData);
 
-        // Setup mapper to avoid null issues if called
-        mapperMock
-            .Setup(m => m.ConfigurationProvider)
-            .Returns(new MapperConfiguration(cfg => cfg.AddProfile<CompanyMappingProfile>()));
+        var handler = new GetCompanyByIdQueryHandler(
+            companyRepositoryMock.Object,
+            mapperMock.Object,
+            loggerMock
+        );
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(() => handler.Handle(query, CancellationToken.None));
+
+        companyRepositoryMock.Verify(r => r.QueryAllAsNoTracking(), Times.Once);
+    }
+
+
+    [Fact]
+    public async Task GetCompanyById_ShouldCallRepositoryQueryAllAsNoTracking()
+    {
+        // Arrange
+        var companyId = Guid.NewGuid();
+        var query = new GetCompanyByIdQuery(companyId);
+
+        var company = new Company { Id = companyId, Name = "TestCo" /* set required properties */ };
+        var companiesMock = new List<Company> { company }.AsQueryable().BuildMock();
+
+        var companyRepositoryMock = new Mock<IRepository<Company>>();
+        companyRepositoryMock.Setup(r => r.QueryAllAsNoTracking()).Returns(companiesMock);
+
+        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CompanyMappingProfile>());
+        var mapperMock = new Mock<IMapper>();
+        mapperMock.Setup(m => m.ConfigurationProvider).Returns(mapperConfig);
+
+        var loggerMock = new NullLogger<GetCompanyByIdQueryHandler>();
 
         var handler = new GetCompanyByIdQueryHandler(
             companyRepositoryMock.Object,
@@ -156,47 +177,8 @@ public class CompanyHandlersTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
-        Assert.Null(result);
         companyRepositoryMock.Verify(r => r.QueryAllAsNoTracking(), Times.Once);
-    }
-
-
-    [Fact]
-    public async Task GetCompanyById_ShouldCallRepositoryQueryAllAsNoTracking()
-    {
-        // Arrange
-        var companyId = Guid.NewGuid();
-        var query = new GetCompanyByIdQuery(companyId);
-        var companyRepositoryMock = new Mock<IRepository<Company>>();
-        var mapperMock = new Mock<IMapper>();
-        var loggerMock = new NullLogger<GetCompanyByIdQueryHandler>();
-
-        var companiesMock = new List<Company>().AsQueryable().BuildMock();
-
-        companyRepositoryMock
-            .Setup(r => r.QueryAllAsNoTracking())
-            .Returns(companiesMock);
-
-        var mapperConfig = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<CompanyMappingProfile>();
-        });
-
-        mapperMock
-            .Setup(m => m.ConfigurationProvider)
-            .Returns(mapperConfig);
-
-        var handler = new GetCompanyByIdQueryHandler(
-            companyRepositoryMock.Object,
-            mapperMock.Object,
-            loggerMock
-        );
-
-        // Act
-        await handler.Handle(query, CancellationToken.None);
-
-        // Assert
-        companyRepositoryMock.Verify(r => r.QueryAllAsNoTracking(), Times.Once);
+        Assert.NotNull(result); // Optional, to check something is returned
     }
 
     [Fact]
