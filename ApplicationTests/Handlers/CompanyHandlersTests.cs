@@ -25,7 +25,7 @@ public class CompanyHandlersTests
         _createHandler = new CreateCompanyCommandHandler(_companyRepositoryMock.Object, _mapperMock.Object);
     }
 
-    private (CreateCompanyCommand command, Company company, CompanyResponse response) 
+    private (CreateCompanyCommand command, Company company, CompanyResponse response)
         SetupCreateCommandData(string name, string exchange, string ticker, string isin, string website)
     {
         var command = new CreateCompanyCommand

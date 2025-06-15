@@ -18,11 +18,11 @@ public class Repository<T>(ApplicationDbContext context) : IRepository<T> where 
     public IQueryable<T> QueryAllAsNoTracking() => _dbSet.AsNoTracking();
 
     public IQueryable<T> QueryAllIncluding(params Expression<Func<T, object>>[] paths) =>
-        paths.Aggregate(_dbSet.AsQueryable(), 
-            (current, path) => current.Include(path));    
+        paths.Aggregate(_dbSet.AsQueryable(),
+            (current, path) => current.Include(path));
 
     public IQueryable<T> QueryAllAsNoTrackingIncluding(params Expression<Func<T, object>>[] paths) =>
-        paths.Aggregate(_dbSet.AsNoTracking().AsQueryable(), 
+        paths.Aggregate(_dbSet.AsNoTracking().AsQueryable(),
             (current, path) => current.Include(path));
 
     public Task SaveChangesAsync(CancellationToken cancellationToken = default) =>

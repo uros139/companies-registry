@@ -13,6 +13,6 @@ public static class ActionResultExtensions
     this TDestination model,
     string actionName,
     object routeValues)
-    where TDestination : class => 
+    where TDestination : class =>
         new CreatedAtActionResult(actionName, null, routeValues, model);
 }
