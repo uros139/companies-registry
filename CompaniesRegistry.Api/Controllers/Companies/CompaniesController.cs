@@ -6,7 +6,7 @@ using CompaniesRegistry.Application.Features.Companies.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CompaniesRegistry.Api.Controllers.Features.Companies;
+namespace CompaniesRegistry.Api.Controllers.Companies;
 
 [Route("api/[controller]")]
 public class CompaniesController(IMediator mediator) : Controller
