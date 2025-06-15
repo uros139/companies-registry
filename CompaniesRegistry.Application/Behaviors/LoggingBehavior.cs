@@ -24,7 +24,6 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TReque
             }
             catch (ValidationException)
             {
-                // Do not log validation exceptions as errors
                 throw;
             }
             catch (Exception ex)

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,25 +11,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'companies-registry-app';
+export class AppComponent implements OnInit {
   showMenu = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    // Check initial route
     this.updateMenuVisibility(this.router.url);
 
-    // Listen to route changes
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.updateMenuVisibility(event.url);
+        this.updateMenuVisibility(event.urlAfterRedirects);
       }
     });
   }
+
   private updateMenuVisibility(url: string) {
+    const cleanUrl = url.split('?')[0].split('#')[0];
     const authRoutes = ['/login', '/register'];
-    this.showMenu = !authRoutes.some(route => url.includes(route));
+    this.showMenu = !authRoutes.includes(cleanUrl);
   }
 }
