@@ -3,6 +3,7 @@ using CompaniesRegistry.Application.Features.Users.GetById;
 using CompaniesRegistry.Application.Features.Users.Login;
 using CompaniesRegistry.Application.Features.Users.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompaniesRegistry.Api.Controllers.Users;
@@ -11,6 +12,7 @@ namespace CompaniesRegistry.Api.Controllers.Users;
 public class UsersController(IMediator mediator) : Controller
 {
     [HttpGet("{id}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
