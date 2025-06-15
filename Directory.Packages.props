@@ -13,6 +13,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
     <PackageVersion Include="MockQueryable.Core" Version="7.0.3" />
     <PackageVersion Include="MockQueryable.EntityFrameworkCore" Version="7.0.3" />
     <PackageVersion Include="Moq" Version="4.20.72" />
