@@ -4,6 +4,8 @@ This project is built with .NET 9 and Angular 17. While it includes a frontend, 
 
 It follows clean code principles using Domain-Driven Design (DDD) and Clean Architecture to promote maintainability and scalability.
 
+The app provides simple CRUD use cases, but the main focus is on best practices, architectural structure, and configuring the project like a real-world system to support future growth.
+
 ## To run the app
 
 ### Prerequisites
