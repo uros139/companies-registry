@@ -16,5 +16,15 @@ To run the entire application locally using Docker:
 
 ```bash
 docker compose up
+```
 
-# The frontend application will be available at: http://localhost:4200
+The frontend application will be available at: http://localhost:4200
+
+### Running tests
+
+If you're not using an IDE with a built-in test explorer, you can run the tests from the terminal:
+
+```bash
+dotnet test CompaniesRegistry.sln
+```
+
