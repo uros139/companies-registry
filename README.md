@@ -1,12 +1,14 @@
 # Companies Registry
 
-This application showcases the use of Domain-Driven Design (DDD) and Clean Architecture principles in a practical .NET project. It is organized into clearly separated layers to ensure maintainability, scalability, and testability.
+This project is built with .NET 9 and Angular 17. While it includes a frontend, the main focus is on the backend.
+
+It follows clean code principles using Domain-Driven Design (DDD) and Clean Architecture to promote maintainability and scalability.
 
 ## To run the app
 
 ### Prerequisites
 - Docker and Docker Compose
-- .NET [version] SDK (for running tests locally)
+- .NET 9 SDK (for running tests locally)
 
 ### Running the Application
 
