@@ -21,7 +21,7 @@ services:
         context: ./companies-registry-app
         dockerfile: Dockerfile
       ports:
-      - "4200:80"
+      - "4200:80"   
       depends_on:
       - companiesregistry.api
       networks:
@@ -33,6 +33,8 @@ services:
     depends_on:
       - sqlserver
     environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Database=Server=sqlserver,1433;Database=companies-registry;User Id=sa;Password=YourStrong!Passw0rd123;TrustServerCertificate=True;MultipleActiveResultSets=true;
     ports:
       - "8080:8080"
