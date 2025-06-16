@@ -1,6 +1,7 @@
 ﻿using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
 using CompaniesRegistry.Domain.Users;
+using CompaniesRegistry.Infrastructure.Database.Seeding;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Infrastructure.Database;
@@ -15,5 +16,7 @@ public sealed class ApplicationDbContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
+        CompanySeed.Seed(modelBuilder);
     }
 }
