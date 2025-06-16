@@ -21,7 +21,7 @@ public static class DependencyInjection
         services.AddSwaggerGen();
 
         services.AddControllers();
-        
+
         services.Scan(scan => scan
             .FromAssemblyOf<IExceptionHandlerStrategy>()
             .AddClasses(classes => classes.AssignableTo<IExceptionHandlerStrategy>())
@@ -29,9 +29,8 @@ public static class DependencyInjection
             .WithTransientLifetime());
 
         services.AddExceptionHandler<GlobalExceptionHandler>();
-        
-        services.AddProblemDetails();
 
+        services.AddProblemDetails();
 
         return services;
     }
