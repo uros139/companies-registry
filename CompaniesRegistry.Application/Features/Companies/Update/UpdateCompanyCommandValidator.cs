@@ -25,23 +25,18 @@ public class UpdateCompanyCommandValidator : AbstractValidator<UpdateCompanyComm
             .MaximumLength(ModelConstants.DefaultStringMaxLength);
         RuleFor(c => c.Isin)
             .NotEmpty()
-            .Must(isin =>
-                isin.Length >= 2 &&
-                Char.IsLetter(isin[0]) &&
-                Char.IsLetter(isin[1]))
+            .Must(CompanyRules.IsIsinFormatValid)
             .WithMessage("The first two characters of ISIN must be letters.");
+
         RuleFor(c => c.Isin)
             .MustAsync(async (isin, cancellationToken) =>
                 !await IsDuplicateIsinAsync(isin, cancellationToken))
             .WithMessage("A company with the same ISIN already exists.");
+
         RuleFor(c => c.WebSite)
-            .Must(BeAValidUrl)
-            .When(c => !String.IsNullOrWhiteSpace(c.WebSite))
+            .Must(CompanyRules.IsWebsiteUrlValid)
             .WithMessage("Website must be a valid URL.");
     }
-
-    private bool BeAValidUrl(string? url) =>
-        Uri.TryCreate(url, UriKind.Absolute, out var uriResult);
 
     private async Task<bool> IsDuplicateIsinAsync(string isin, CancellationToken cancellationToken) =>
         await _repository
