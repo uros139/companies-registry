@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using MockQueryable;
 using Moq;
 
-namespace ApplicationTests.Handlers;
+namespace CompaniesRegistry.Application.Tests.Handlers;
 
 public class CompanyHandlersTests
 {

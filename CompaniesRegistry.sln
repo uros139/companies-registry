@@ -20,11 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.SharedKernel", "CompaniesRegistry.SharedKernel\CompaniesRegistry.SharedKernel.csproj", "{9F773084-527D-485B-AE5E-5A5D1C567A35}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34F4CF4F-E793-4AB8-8FDB-22E4ABBA95F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.ArchitectureTests", "ArchitectureTests\CompaniesRegistry.ArchitectureTests.csproj", "{20CFB6CC-6B61-4A16-90AE-9EEAF0AFBAD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "ArchitectureTests\ArchitectureTests.csproj", "{20CFB6CC-6B61-4A16-90AE-9EEAF0AFBAD6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTests", "ApplicationTests\ApplicationTests.csproj", "{B1E38C56-31FC-4038-B974-3C5A363F847A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.Application.Tests", "ApplicationTests\CompaniesRegistry.Application.Tests.csproj", "{B1E38C56-31FC-4038-B974-3C5A363F847A}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
@@ -75,11 +73,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{20CFB6CC-6B61-4A16-90AE-9EEAF0AFBAD6} = {34F4CF4F-E793-4AB8-8FDB-22E4ABBA95F6}
-		{B1E38C56-31FC-4038-B974-3C5A363F847A} = {34F4CF4F-E793-4AB8-8FDB-22E4ABBA95F6}
-		{82B75EC6-0FE6-45FF-8585-F1A7932740AC} = {34F4CF4F-E793-4AB8-8FDB-22E4ABBA95F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {450EF7F6-AE86-450D-9023-E3365B7CB73F}

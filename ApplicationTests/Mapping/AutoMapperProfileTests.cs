@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CompaniesRegistry.Application.Features.Companies.Mapping;
 
-namespace ApplicationTests.Mapping;
+namespace CompaniesRegistry.Application.Tests.Mapping;
 
 public class AutoMapperProfileTests
 {
