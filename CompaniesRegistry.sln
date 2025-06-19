@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.Api.Integ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.Domain.Tests", "CompaniesRegistry.Domain.Tests\CompaniesRegistry.Domain.Tests.csproj", "{3A1064BE-FAC9-4D7B-B540-2062BF196E66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesRegistry.Infrastructure.Tests", "CompaniesRegistry.Infrastructure.Tests\CompaniesRegistry.Infrastructure.Tests.csproj", "{EB7C4D52-AF5E-4515-A87F-2DAF2EFE5AAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{3A1064BE-FAC9-4D7B-B540-2062BF196E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A1064BE-FAC9-4D7B-B540-2062BF196E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A1064BE-FAC9-4D7B-B540-2062BF196E66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB7C4D52-AF5E-4515-A87F-2DAF2EFE5AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB7C4D52-AF5E-4515-A87F-2DAF2EFE5AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB7C4D52-AF5E-4515-A87F-2DAF2EFE5AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB7C4D52-AF5E-4515-A87F-2DAF2EFE5AAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
