@@ -2,7 +2,7 @@
 using NetArchTest.Rules;
 using Shouldly;
 
-namespace ArchitectureTests.Layers;
+namespace CompaniesRegistry.Architecture.Tests.Layers;
 
 public class LayerTests
 {
