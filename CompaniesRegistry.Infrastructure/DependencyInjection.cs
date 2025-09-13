@@ -3,6 +3,7 @@ using CompaniesRegistry.Application.Abstractions.Authentication;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Infrastructure.Authentication;
 using CompaniesRegistry.Infrastructure.Database;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("Database")));
-        
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
         return services;
     }
 
@@ -49,8 +50,8 @@ public static class DependencyInjection
             });
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
-        services.AddSingleton<ITokenProvider, TokenProvider>();
+        services.AddTransient<IPasswordHasher, PasswordHasher>();
+        services.AddTransient<ITokenProvider, TokenProvider>();
 
         return services;
     }

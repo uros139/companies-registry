@@ -58,7 +58,6 @@ public class CompanyHandlersTests
 
         _mapperMock.Setup(m => m.Map<Company>(command)).Returns(company);
         _companyRepositoryMock.Setup(r => r.AddAsync(company, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
-        _companyRepositoryMock.Setup(r => r.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
         _mapperMock.Setup(m => m.Map<CompanyResponse>(company)).Returns(response);
 
         return (command, company, response);
@@ -76,7 +75,6 @@ public class CompanyHandlersTests
         // Assert
         _mapperMock.Verify(m => m.Map<Company>(command), Times.Once);
         _companyRepositoryMock.Verify(r => r.AddAsync(company, It.IsAny<CancellationToken>()), Times.Once);
-        _companyRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         _mapperMock.Verify(m => m.Map<CompanyResponse>(company), Times.Once);
 
         Assert.Equal(response, result);
@@ -93,7 +91,6 @@ public class CompanyHandlersTests
 
         // Assert
         _companyRepositoryMock.Verify(r => r.AddAsync(company, It.IsAny<CancellationToken>()), Times.Once);
-        _companyRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         Assert.Equal(response, result);
     }
 
@@ -177,7 +174,6 @@ public class CompanyHandlersTests
 
         var companyRepositoryMock = new Mock<IRepository<Company>>();
         companyRepositoryMock.Setup(r => r.QueryAll()).Returns(companies);
-        companyRepositoryMock.Setup(r => r.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
 
         var updateCommand = new UpdateCompanyCommand
         {
@@ -218,7 +214,6 @@ public class CompanyHandlersTests
         Assert.Equal(existingCompany.Name, result.Name);
 
         companyRepositoryMock.Verify(r => r.QueryAll(), Times.Once);
-        companyRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         mapperMock.Verify(m => m.Map<CompanyResponse>(existingCompany), Times.Once);
     }
 }

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace CompaniesRegistry.Infrastructure.Database;
 
-public class Repository<T>(ApplicationDbContext context) : IRepository<T> where T : class
+internal class Repository<T>(ApplicationDbContext context) : IRepository<T> where T : class
 {
     private readonly DbSet<T> _dbSet = context.Set<T>();
 
@@ -24,9 +24,4 @@ public class Repository<T>(ApplicationDbContext context) : IRepository<T> where 
     public IQueryable<T> QueryAllAsNoTrackingIncluding(params Expression<Func<T, object>>[] paths) =>
         paths.Aggregate(_dbSet.AsNoTracking().AsQueryable(),
             (current, path) => current.Include(path));
-
-    public Task SaveChangesAsync(CancellationToken cancellationToken = default) =>
-        context.SaveChangesAsync(cancellationToken);
-
-
 }

@@ -27,8 +27,6 @@ internal sealed class RegisterUserCommandHandler(
 
         await repository.AddAsync(user, cancellationToken);
 
-        await repository.SaveChangesAsync(cancellationToken);
-
         return mapper.Map<UserResponse>(user);
     }
 }

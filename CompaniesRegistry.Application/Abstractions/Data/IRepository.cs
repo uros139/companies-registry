@@ -10,5 +10,4 @@ public interface IRepository<T> where T : class
     IQueryable<T> QueryAllAsNoTracking();
     IQueryable<T> QueryAllIncluding(params Expression<Func<T, object>>[] paths);
     IQueryable<T> QueryAllAsNoTrackingIncluding(params Expression<Func<T, object>>[] paths);
-    Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

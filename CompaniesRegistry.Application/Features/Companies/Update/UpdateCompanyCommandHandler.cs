@@ -29,8 +29,6 @@ internal sealed class UpdateCompanyCommandHandler(
 
         company.Update(updateDto);
 
-        await companyRepository.SaveChangesAsync(cancellationToken);
-
         return mapper.Map<CompanyResponse>(company);
     }
 }

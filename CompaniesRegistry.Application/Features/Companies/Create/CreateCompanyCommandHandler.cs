@@ -17,8 +17,6 @@ internal sealed class CreateCompanyCommandHandler(
 
         await companyRepository.AddAsync(company, cancellationToken);
 
-        await companyRepository.SaveChangesAsync(cancellationToken);
-
         return mapper.Map<CompanyResponse>(company);
     }
 }
