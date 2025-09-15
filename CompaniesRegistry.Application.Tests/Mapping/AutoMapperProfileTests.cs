@@ -3,6 +3,7 @@ using CompaniesRegistry.Application.Features.Companies.Mapping;
 
 namespace CompaniesRegistry.Application.Tests.Mapping;
 
+[Trait("Category", "Unit")]
 public class AutoMapperProfileTests
 {
     [Fact]

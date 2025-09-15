@@ -12,6 +12,7 @@ using Moq;
 
 namespace CompaniesRegistry.Application.Tests.Handlers;
 
+[Trait("Category", "Unit")]
 public class CompanyHandlersTests
 {
     private readonly Mock<IRepository<Company>> _companyRepositoryMock;

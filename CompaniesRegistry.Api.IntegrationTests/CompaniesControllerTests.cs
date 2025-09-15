@@ -6,14 +6,10 @@ using FluentAssertions;
 
 namespace CompaniesRegistry.Api.IntegrationTests;
 
-public class CompaniesControllerTests : IClassFixture<TestApplicationFactory>
+[Trait("Category", "Integration")]
+public class CompaniesControllerTests(TestApplicationFactory factory) : IClassFixture<TestApplicationFactory>
 {
-    private readonly HttpClient _client;
-
-    public CompaniesControllerTests(TestApplicationFactory factory)
-    {
-        _client = factory.CreateClient();
-    }
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task Post_Should_Create_Company()

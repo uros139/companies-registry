@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Infrastructure.Tests.Database;
 
+[Trait("Category", "Unit")]
 public class ApplicationDbContextTests
 {
     [Fact]

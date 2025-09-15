@@ -3,6 +3,7 @@ using FluentAssertions;
 
 namespace CompaniesRegistry.Domain.Tests.Companies;
 
+[Trait("Category", "Unit")]
 public class CompanyRulesTests
 {
     [Theory]

@@ -4,6 +4,7 @@ using Shouldly;
 
 namespace CompaniesRegistry.Architecture.Tests.Layers;
 
+[Trait("Category", "Unit")]
 public class LayerTests
 {
     [Fact]
