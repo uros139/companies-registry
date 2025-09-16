@@ -8,12 +8,26 @@ on:
 
 jobs:
   build-and-test:
-    name: Build & Test with Docker Compose
+    name: Build & Test .NET + Docker Images
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore ./Backend/YourApi.sln
+
+      - name: Build solution
+        run: dotnet build ./Backend/YourApi.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test ./Backend/YourApi.sln --no-build --verbosity normal
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -24,16 +38,10 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      # Build images with tags (make sure your docker-compose.yml has image: uros139/... for each service)
       - name: Build Docker images
         run: docker compose -f docker-compose.yml build
 
-      # Run integration tests (only if you have docker-compose.test.yml with a "tests" service defined)
-      - name: Run integration tests
-        run: docker compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from tests
-
-      # Push images to Docker Hub only on main branch
-      - name: Push images
+      - name: Push Docker images
         if: github.ref == 'refs/heads/main'
         run: docker compose -f docker-compose.yml push
 
