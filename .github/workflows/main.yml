@@ -24,10 +24,10 @@ jobs:
         run: dotnet restore ./CompaniesRegistry.sln
 
       - name: Build solution
-        run: dotnet build ./CompaniesRegistry.sln --configuration Release --no-restore
+        run: dotnet build ./CompaniesRegistry.sln --configuration Release
 
       - name: Run tests
-        run: dotnet test ./CompaniesRegistry.sln --no-build --verbosity normal
+        run: dotnet test ./CompaniesRegistry.sln --verbosity normal
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
