@@ -29,7 +29,7 @@ public class CompaniesControllerTests(TestApplicationFactory factory) : IClassFi
 
         var created = await response.Content.ReadFromJsonAsync<CompanyResponse>();
         created.Should().NotBeNull();
-        created!.Name.Should().Be(command.Name);
+        created.Name.Should().Be(command.Name);
         created.Ticker.Should().Be(command.Ticker);
     }
 
