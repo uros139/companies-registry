@@ -106,7 +106,7 @@ public class CompanyHandlersTests
         mapperMock.Setup(m => m.ConfigurationProvider).Returns(mapperConfig);
         var loggerMock = new NullLogger<GetCompanyByIdQueryHandler>();
 
-        var companiesData = new List<Company>().AsQueryable().BuildMock();
+        var companiesData = new List<Company>().BuildMock();
 
         companyRepositoryMock.Setup(r => r.QueryAllAsNoTracking()).Returns(companiesData);
 
@@ -131,7 +131,7 @@ public class CompanyHandlersTests
         var query = new GetCompanyByIdQuery(companyId);
 
         var company = new Company { Id = companyId, Name = "TestCo" /* set required properties */ };
-        var companiesMock = new List<Company> { company }.AsQueryable().BuildMock();
+        var companiesMock = new List<Company> { company }.BuildMock();
 
         var companyRepositoryMock = new Mock<IRepository<Company>>();
         companyRepositoryMock.Setup(r => r.QueryAllAsNoTracking()).Returns(companiesMock);
@@ -171,7 +171,7 @@ public class CompanyHandlersTests
             WebSite = "https://old.website"
         };
 
-        var companies = new List<Company> { existingCompany }.AsQueryable().BuildMock();
+        var companies = new List<Company> { existingCompany }.BuildMock();
 
         var companyRepositoryMock = new Mock<IRepository<Company>>();
         companyRepositoryMock.Setup(r => r.QueryAll()).Returns(companies);
