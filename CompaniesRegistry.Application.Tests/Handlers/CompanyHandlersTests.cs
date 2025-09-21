@@ -101,7 +101,9 @@ public class CompanyHandlersTests
         // Arrange
         var query = new GetCompanyByIdQuery(Guid.NewGuid());
         var companyRepositoryMock = new Mock<IRepository<Company>>();
-        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CompanyMappingProfile>());
+        var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.AddProfile<CompanyMappingProfile>() , NullLoggerFactory.Instance );
+
         var mapperMock = new Mock<IMapper>();
         mapperMock.Setup(m => m.ConfigurationProvider).Returns(mapperConfig);
         var loggerMock = new NullLogger<GetCompanyByIdQueryHandler>();
@@ -136,7 +138,9 @@ public class CompanyHandlersTests
         var companyRepositoryMock = new Mock<IRepository<Company>>();
         companyRepositoryMock.Setup(r => r.QueryAllAsNoTracking()).Returns(companiesMock);
 
-        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CompanyMappingProfile>());
+        var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.AddProfile<CompanyMappingProfile>(), NullLoggerFactory.Instance);
+
         var mapperMock = new Mock<IMapper>();
         mapperMock.Setup(m => m.ConfigurationProvider).Returns(mapperConfig);
 

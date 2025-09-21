@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CompaniesRegistry.Application.Features.Companies.Mapping;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CompaniesRegistry.Application.Tests.Mapping;
 
@@ -11,9 +12,10 @@ public class AutoMapperProfileTests
     {
         var appAssembly = typeof(CompanyMappingProfile).Assembly;
         var config = new MapperConfiguration(cfg =>
-        {
-            cfg.AddMaps(appAssembly);
-        });
+            {
+                cfg.AddMaps(appAssembly);
+            },
+            NullLoggerFactory.Instance);
 
         config.AssertConfigurationIsValid();
     }
