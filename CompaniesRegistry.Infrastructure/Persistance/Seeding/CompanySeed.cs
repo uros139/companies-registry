@@ -1,7 +1,7 @@
 ﻿using CompaniesRegistry.Domain.Companies;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompaniesRegistry.Infrastructure.Database.Seeding;
+namespace CompaniesRegistry.Infrastructure.Persistance.Seeding;
 
 internal static class CompanySeed
 {

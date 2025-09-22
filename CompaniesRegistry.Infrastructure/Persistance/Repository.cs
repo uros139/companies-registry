@@ -1,8 +1,8 @@
-﻿using CompaniesRegistry.Application.Abstractions.Data;
+﻿using System.Linq.Expressions;
+using CompaniesRegistry.Application.Abstractions.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
-namespace CompaniesRegistry.Infrastructure.Database;
+namespace CompaniesRegistry.Infrastructure.Persistance;
 
 internal class Repository<T>(ApplicationDbContext context) : IRepository<T> where T : class
 {

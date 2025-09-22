@@ -1,10 +1,10 @@
 ﻿using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Domain.Companies;
 using CompaniesRegistry.Domain.Users;
-using CompaniesRegistry.Infrastructure.Database.Seeding;
+using CompaniesRegistry.Infrastructure.Persistance.Seeding;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompaniesRegistry.Infrastructure.Database;
+namespace CompaniesRegistry.Infrastructure.Persistance;
 
 public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options)

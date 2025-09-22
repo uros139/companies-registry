@@ -35,4 +35,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-public partial class Program { }
+namespace CompaniesRegistry.Api
+{
+    public partial class Program { }
+}

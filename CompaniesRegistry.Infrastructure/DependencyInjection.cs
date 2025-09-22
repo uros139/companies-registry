@@ -2,7 +2,7 @@
 using CompaniesRegistry.Application.Abstractions.Authentication;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Infrastructure.Authentication;
-using CompaniesRegistry.Infrastructure.Database;
+using CompaniesRegistry.Infrastructure.Persistance;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

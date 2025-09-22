@@ -1,4 +1,4 @@
-﻿using CompaniesRegistry.Infrastructure.Database;
+﻿using CompaniesRegistry.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Api.Extensions;
