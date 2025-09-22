@@ -2,7 +2,7 @@
 using CompaniesRegistry.Application.Abstractions.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompaniesRegistry.Infrastructure.Persistance;
+namespace CompaniesRegistry.Infrastructure.Persistence;
 
 internal class Repository<T>(ApplicationDbContext context) : IRepository<T> where T : class
 {

@@ -34,7 +34,12 @@ internal sealed class CompaniesConfiguration : IEntityTypeConfiguration<Company>
             .HasIndex(c => c.Isin)
             .IsUnique();
 
-        builder.ToTable("Companies", t => t.HasCheckConstraint("CK_Companies_Isin_AlphaPrefix", "Isin LIKE '[A-Z][A-Z]%'"));
-
+        builder.ToTable("Companies", t =>
+        {
+            t.HasCheckConstraint(
+                "CK_Companies_Isin_AlphaPrefix",
+                "\"Isin\" ~ '^[A-Z]{2}'" // <-- quoted column
+            );
+        });
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CompaniesRegistry.Domain.Companies;
-using CompaniesRegistry.Infrastructure.Persistance;
+using CompaniesRegistry.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompaniesRegistry.Infrastructure.Tests.Database;

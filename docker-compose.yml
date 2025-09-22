@@ -1,41 +1,44 @@
 version: "3.9"
 
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+  postgres:
+    image: postgres:16
+    container_name: postgres
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong!Passw0rd123
+      - POSTGRES_USER=uros
+      - POSTGRES_PASSWORD=urospassword
+      - POSTGRES_DB=companies_registry
     ports:
-      - "1433:1433"
+      - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U sa -P YourStrong!Passw0rd123 -Q 'SELECT 1'"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - backend
+
   angular:
-      build: 
-        context: ./companies-registry-app
-        dockerfile: Dockerfile
-      ports:
-      - "4200:80"   
-      depends_on:
+    build:
+      context: ./companies-registry-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
       - companiesregistry.api
-      networks:
+    networks:
       - backend
+
   companiesregistry.api:
     build:
       context: .
       dockerfile: CompaniesRegistry.Api/Dockerfile
     depends_on:
-      - sqlserver
+      - postgres
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Database=Server=sqlserver,1433;Database=companies-registry;User Id=sa;Password=YourStrong!Passw0rd123;TrustServerCertificate=True;MultipleActiveResultSets=true;
+      - ConnectionStrings__Database=Host=postgres;Port=5432;Database=companies_registry;Username=uros;Password=urospassword
     ports:
       - "8080:8080"
       - "8081:8081"

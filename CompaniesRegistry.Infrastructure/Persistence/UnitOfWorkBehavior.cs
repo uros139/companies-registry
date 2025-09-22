@@ -1,7 +1,7 @@
 ﻿using CompaniesRegistry.Application.Abstractions.Messaging;
 using MediatR;
 
-namespace CompaniesRegistry.Infrastructure.Persistance;
+namespace CompaniesRegistry.Infrastructure.Persistence;
 internal sealed class UnitOfWorkBehavior<TRequest, TResponse>(
     ApplicationDbContext dbContext
 ) : IPipelineBehavior<TRequest, TResponse>

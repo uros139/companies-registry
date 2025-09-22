@@ -1,4 +1,4 @@
-﻿using CompaniesRegistry.Infrastructure.Persistance;
+﻿using CompaniesRegistry.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;

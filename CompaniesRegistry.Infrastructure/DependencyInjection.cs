@@ -2,7 +2,7 @@
 using CompaniesRegistry.Application.Abstractions.Authentication;
 using CompaniesRegistry.Application.Abstractions.Data;
 using CompaniesRegistry.Infrastructure.Authentication;
-using CompaniesRegistry.Infrastructure.Persistance;
+using CompaniesRegistry.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +25,8 @@ public static class DependencyInjection
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("Database")));
+            options.UseNpgsql(configuration.GetConnectionString("Database")));
+        
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
         return services;
     }
