@@ -22,11 +22,11 @@ app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
     app.ApplyMigrations();
 }
 
