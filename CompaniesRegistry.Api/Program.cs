@@ -1,5 +1,4 @@
-﻿using CompaniesRegistry.Api;
-using CompaniesRegistry.Api.Extensions;
+﻿using CompaniesRegistry.Api.Extensions;
 using CompaniesRegistry.Application;
 using CompaniesRegistry.Infrastructure;
 using Serilog;
@@ -34,12 +33,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var port = Environment.GetEnvironmentVariable("PORT");
-if (!String.IsNullOrEmpty(port))
-{
-    // Only override when PORT is set (Render sets this)
-    app.Urls.Add($"http://0.0.0.0:{port}");
-}
+app.UseDynamicPort();
 
 app.Run();
 

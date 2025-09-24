@@ -1,9 +1,9 @@
 ﻿using CompaniesRegistry.Api.Infrastructure;
 using CompaniesRegistry.Api.Infrastructure.ExceptionHandling;
 
-namespace CompaniesRegistry.Api;
+namespace CompaniesRegistry.Api.Extensions;
 
-public static class DependencyInjection
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
