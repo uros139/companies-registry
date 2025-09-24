@@ -33,6 +33,12 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Get Render-assigned port or fallback
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
+// Listen on all network interfaces (0.0.0.0)
+app.Urls.Add($"http://0.0.0.0:{port}");
 app.Run();
 
 namespace CompaniesRegistry.Api
