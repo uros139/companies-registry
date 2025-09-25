@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
             {
                 policy.WithOrigins(
                     "http://localhost:4200",
-                    "https://companies-registry.onrender.com/")
+                    "https://companies-registry-app.onrender.com")
                       .AllowAnyHeader()
                       .AllowAnyMethod()
                       .AllowCredentials();
