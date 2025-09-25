@@ -11,7 +11,9 @@ public static class ServiceCollectionExtensions
         {
             options.AddPolicy("AllowFrontend", policy =>
             {
-                policy.WithOrigins("http://localhost:4200")
+                policy.WithOrigins(
+                    "http://localhost:4200",
+                    "https://companies-registry.onrender.com/")
                       .AllowAnyHeader()
                       .AllowAnyMethod()
                       .AllowCredentials();
