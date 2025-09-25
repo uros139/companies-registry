@@ -12,9 +12,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
-    { provide: API_BASE_URL, useValue: environment.apiUrl }, 
-    provideAnimationsAsync(),
     { provide: API_BASE_URL, useValue: environment.apiUrl },
+    provideAnimationsAsync(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
